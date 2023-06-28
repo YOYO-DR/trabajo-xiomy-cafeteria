@@ -1,0 +1,22 @@
+body {
+  background-color: #f9eee8;
+  padding: 1.5rem;
+  height: 90vh;
+}
+.navbar{
+background-color: #f2ddd2 !important
+}
+.radiust {
+  border-radius: 25px 25px 0 0;
+}
+.radiusb {
+  border-radius: 0 0 25px 25px;
+}
+
+.radiustb{
+  border-radius: 25px 25px 25px 25px;
+}
+.content {
+  background-color:#eacdbc !important
+}
+
