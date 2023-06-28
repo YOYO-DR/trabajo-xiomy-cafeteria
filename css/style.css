@@ -20,3 +20,29 @@ background-color: #f2ddd2 !important
   background-color:#eacdbc !important
 }
 
+.btnProduct {
+  text-align: center;
+  text-decoration: none;
+  width: 10rem;
+  height: 40px;
+  color: black;
+  padding: 5px 10px;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background: #d8af97;
+  box-shadow: 0 5px #ab846e;
+}
+
+.btnProduct:hover {
+  box-shadow: 0 3px #ab846e;
+  top: 1px;
+}
+.btnProduct:active {
+  box-shadow: 0 0 #ab846e;
+  top: 5px;
+}
