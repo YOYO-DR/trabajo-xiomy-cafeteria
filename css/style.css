@@ -74,3 +74,15 @@ cursor: pointer;
 .values-drop {
   background-color: #e2bca7;
 }
+
+.accordion-item {
+  background-color: transparent;
+  border: none !important;
+}
+
+.accordion-title {
+  background-color:#f2ddd2 !important
+}
+.accordion-title:focus {
+  box-shadow: none !important;
+}

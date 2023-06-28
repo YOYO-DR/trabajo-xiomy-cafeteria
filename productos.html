@@ -55,11 +55,18 @@
         <div class="d-flex flex-column flex-md-row">
           <section class="col-12 col-md-8">
             <div>
-              <div
-                class="border-drop cate-p d-flex align-items-center mt-2 justify-content-between pe-4"
-                id="drop-c-negro"
-              >
-                <div class="d-flex align-items-center">
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed accordion-title"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      <div class="d-flex align-items-center">
                   <img
                     class="img-drop me-1"
                     src="/img/productos/cafe negro - c.jpg"
@@ -67,16 +74,15 @@
                   />
                   <h2>Café negro</h2>
                 </div>
-                <button class="btn-des">
-                  <img
-                    class="icono-flecha"
-                    src="/img/flecha-hacia-abajo-para-navegar.png"
-                    alt=""
-                  />
-                </button>
-              </div>
-              <div id="values-c-negro" class="mx-1 mx-md-5 mt-1">
-                <div
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div
                   class="col-12 d-flex align-items-center values-drop border-drop"
                 >
                   <img
@@ -96,6 +102,9 @@
                         alt=""
                       />
                     </button>
+                  </div>
+                </div>
+                    </div>
                   </div>
                 </div>
               </div>
