@@ -1,6 +1,6 @@
 body {
   background-color: #f9eee8;
-  padding: 1.5rem;
+  padding: 1rem;
   height: 90vh;
 }
 .navbar{
@@ -45,4 +45,32 @@ background-color: #f2ddd2 !important
 .btnProduct:active {
   box-shadow: 0 0 #ab846e;
   top: 5px;
+}
+.cate-p {
+  background-color: #f2ddd2;
+}
+.border-drop {
+  border-radius: 15px 15px 15px 15px;
+}
+.border-dropt {
+border-radius: 15px 15px 0 0;
+}
+.img-drop {
+  width: 100px;
+  border-radius: 15px 0 0 15px;
+  padding: 5px;
+}
+.icono-flecha {
+  width: 40px;
+}
+
+.btn-des {
+  background-color: transparent;
+  display: inline-block;
+border: none !important;
+cursor: pointer;
+}
+
+.values-drop {
+  background-color: #e2bca7;
 }
