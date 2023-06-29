@@ -81,7 +81,9 @@ cursor: pointer;
 }
 
 .accordion-title {
-  background-color:#f2ddd2 !important
+  background-color:#f2ddd2 !important;
+  padding: 0;
+  border-radius: 15px !important;
 }
 .accordion-title:focus {
   box-shadow: none !important;
