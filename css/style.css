@@ -82,9 +82,14 @@ cursor: pointer;
 
 .accordion-title {
   background-color:#f2ddd2 !important;
-  padding: 0;
+  padding: 5px;
   border-radius: 15px !important;
 }
 .accordion-title:focus {
   box-shadow: none !important;
+}
+
+.form-buscar input:focus{
+  border:solid 1px #ab846e;
+  box-shadow: none;
 }
