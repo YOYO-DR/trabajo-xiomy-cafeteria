@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
   //Buscar los productos
   //selecciono el div que tiene todos los productos
   const accordionContainer = document.querySelector("#accordionExample");
@@ -40,10 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         //si no se ingreso ningun producto, le digo que hubo resultados
          if (accordionContainer.innerHTML === "") {
-           accordionContainer.innerHTML = '<p class="ms-5 fs-4">Sin resultados</p>';
+           accordionContainer.innerHTML = '<p class="ms-0 ms-md-5 fs-4">Sin resultados</p>';
          }
       }
     });
-  /***********************************************/
-  
 });

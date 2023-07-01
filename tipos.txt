@@ -1,0 +1,36 @@
+1. Café negro:
+Espresso
+Americano
+Café filtrado
+
+2. Café con leche:
+Latte
+Cappuccino
+Macchiato
+
+3. Café helado:
+Frappé
+Café helado con vainilla
+Café helado con caramelo
+
+4. Café aromatizado:
+Café de vainilla
+Café de avellana
+Café de almendra
+
+Postres:
+
+1. Pasteles
+Pastel de chocolate
+Tarta de manzana
+Cheesecake de fresa
+
+2. Helados
+Helado de vainilla
+Sorbete de limón
+Helado de cookies and cream
+
+3. Postres de frutas
+Tarta de frutas
+Compota de manzana
+Ensalada de frutas
