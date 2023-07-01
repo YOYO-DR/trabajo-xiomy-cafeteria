@@ -174,9 +174,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   /* carrito */
   function plantillaCart(src, titulo, precio, cantidad) {
-    var plantilla = `
+    const carrito = document.getElementById("carrito");
+    const itemsCarrito = carrito.querySelectorAll(".item-producto")
+    let tituloItems = [...itemsCarrito];
+    const nombresItems = tituloItems.map((item) => {
+      const tituloElement = item.querySelector(".fs-6");
+      return tituloElement.textContent;
+    });
+    let productoExist = false;
+    for (let item of nombresItems) {
+      if (item === titulo) {
+       productoExist=true;
+        break
+      }
+    }
+    if (productoExist) {
+      //utilizar el fs-6 del titulo u otra clase para luego obtener su contenedor padre el cual sea todo el producto
+      console.log(titulo + "Ya esta en el carrito")
+    } else {
+      var plantilla = `
                 <div
-                  class="col-12 d-flex align-items-center values-drop border-drop pe-2 mt-1"
+                  class="col-12 d-flex align-items-center values-drop border-drop pe-2 mt-1 item-producto"
                 >
                   <img
                     class="img-drop"
@@ -209,9 +227,10 @@ document.addEventListener("DOMContentLoaded", function () {
                   </div>
                 </div>
     `;
-    const carrito = document.getElementById("carrito");
-    let carritoActual = (carrito.innerHTML += plantilla);
-    carrito.innerHTML = carritoActual;
+      let carritoActual = (carrito.innerHTML += plantilla);
+      carrito.innerHTML = carritoActual;
+    }
+    
   }
   //funciones
   //agregar evento a cada boton de los productos para obtener sus valores
