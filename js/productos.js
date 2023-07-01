@@ -1,5 +1,14 @@
+function activarDesactivarSubmit() {
+  const produtosEnCarrito = document.querySelectorAll(".item-producto");
+  const boton = document.getElementById("btnSubmit");
+  if (produtosEnCarrito.length === 0) {
+    boton.disabled = true;
+  } else {
+    boton.disabled = false;
+  }
+}
 //mensaje
-function carritoMensaje(a=null) {
+function carritoMensaje(a = null) {
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -11,20 +20,15 @@ function carritoMensaje(a=null) {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-  if (a === "a") {
-    Toast.fire({
-      icon: "success",
-      title: "Producto aumentado",
-    });
-  } else if (a === "d") {
-    Toast.fire({
-      icon: "success",
-      title: "Producto disminuido",
-    });
-  } else if (a === "e") {
+  if (a === "e") {
     Toast.fire({
       icon: "success",
       title: "Producto eliminado",
+    });
+  } else if (a === "sin") {
+    Toast.fire({
+      icon: "error",
+      title: "Carrito vacio",
     });
   }
   
@@ -34,9 +38,7 @@ function carritoMensaje(a=null) {
       title: "Carrito actualizado",
     });
   }
-  
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   //Buscar los productos
@@ -99,38 +101,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 />
                 <label>Dirección:</label>
                 <div class="input-group">
-                  <select
-                    class="form-select input-focus"
-                    aria-label="Default select example"
-                    name="select-direccion"
-                  >
-                    <option value="avenida" selected>Avenida</option>
-                    <option value="carrera">Carrera</option>
-                    <option value="calle">Calle</option>
-                  </select>
+                  <select class="form-select input-focus" aria-label="Default select example" name="selectdireccion">
+  <option value="avenida" selected>Avenida</option>
+  <option value="carrera">Carrera</option>
+  <option value="calle">Calle</option>
+</select>
                   <input required 
                     type="text"
                     class="form-control ms-1 input-focus"
-                    name="d-uno"
+                    name="duno"
                     placeholder="1A"
                   />
                   <span class="mx-1">#</span>
                   <input required 
                     type="text"
                     class="form-control input-focus"
-                    name="d-dos"
+                    name="ddos"
                     placeholder="11"
                   />
                   <span class="mx-1">-</span>
                   <input required 
                     type="text"
                     class="form-control input-focus"
-                    name="d-tres"
+                    name="dtres"
                     placeholder="54"
                   />
                 </div>
                 <label>Barrio, Apto, Casa o Punto de Referencia?</label>
-                <input required name="referencia" type="text" class="form-control input-focus" />
+                <input name="referencia" type="text" class="form-control input-focus" />
               </div>
   `;
   var formReserva = `
@@ -145,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <select
                   class="form-select input-focus"
                   aria-label="Default select example"
-                  name="select-mesa"
+                  name="selectmesa"
                 >
                    
                   <option value="1">1</option>
@@ -155,11 +153,11 @@ document.addEventListener("DOMContentLoaded", function () {
                   <option value="5">5</option>
                 </select>
                 <label for="">Fecha</label>
-                <input required name="fecha" type="date" class="form-control" />
+                <input required name="fecha" type="date" class="form-control input-focus" />
                 <label for="">Hora</label>
-                <input required name="hora" type="time" class="form-control" />
+                <input required name="hora" type="time" class="form-control input-focus" />
               </div>
-              `;
+  `;
   var formEnTienda = `
   <div class="mb-3 border rounded-4 p-2">
                 <label for="i-nombre" class="form-label">Nombre</label>
@@ -180,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 />
                 <label>Mesa:</label>
                 <select
-                  name="select-mesa"
+                  name="selectmesa"
                   class="form-select input-focus"
                   aria-label="Default select example"
                 >
@@ -278,14 +276,12 @@ document.addEventListener("DOMContentLoaded", function () {
       eventoBotonesCarrito();
     }
     //mensaje
-    
-carritoMensaje()
+
+    carritoMensaje();
   }
   //agregar evento a cada boton de los productos para obtener sus valores
   function eventoBotonesProductos() {
     const botonesP = document.querySelectorAll("#accordionExample .btn-des");
-
-    console.log(botonesP.length);
     botonesP.forEach(function (boton) {
       // Clonar el botón para conservar sus propiedades
       const botonClonado = boton.cloneNode(true);
@@ -309,6 +305,7 @@ carritoMensaje()
         const priceText = price.textContent;
 
         plantillaCart(src, titleText, priceText, 1);
+        activarDesactivarSubmit();
       });
 
       // Agregar el botón clonado de vuelta al DOM
@@ -332,7 +329,7 @@ carritoMensaje()
             parseInt(precio.textContent) / parseInt(cantidad.textContent);
           cantidad.innerHTML = parseInt(cantidad.innerHTML) + 1;
           precio.innerHTML = parseInt(cantidad.innerHTML) * precioUnitario;
-          carritoMensaje("a");
+          
         });
       });
       botonesMinus.forEach(function (boton) {
@@ -347,15 +344,76 @@ carritoMensaje()
             cantidad.innerHTML = parseInt(cantidad.innerHTML) - 1;
 
             precio.innerHTML = parseInt(cantidad.innerHTML) * precioUnitario;
-            carritoMensaje("d");
           } else {
             const parentProducto = nodoProducto.parentNode;
             parentProducto.removeChild(nodoProducto);
             carritoMensaje("e");
           }
+          activarDesactivarSubmit();
         });
       });
     }
   }
   eventoBotonesProductos();
+  // boton de formulario
+
+  const Form = document.getElementById("form-pedido");
+  //objeto para poner los nombres mejor en el mensaje
+  let valoresForm = {
+    tipopedido: "Tipo de pedido",
+    nombre: "Nombre",
+    selectdireccion: "Dirección",
+    referencia: "Referencia",
+    selectmesa: "Mesa",
+    fecha: "Fecha",
+    hora: "Hora",
+  };
+  //trabajo en el evento submit del formulario
+  Form.addEventListener("submit", function (e) {
+    //detengo la funcion normal
+    e.preventDefault();
+    //obtengo el formulario
+    var parameters = new FormData(this);
+    //inicializo el mensaje a crear
+    let mensaje = `Pedido de Cafeteria D"Coffe\nInformación:\n`;
+    //inicializo los valores del formulario
+    const valores = {};
+    //recorreo el FormData y obtengo los valores
+    parameters.forEach(function (value, key) {
+      valores[key] = value;
+    });
+    //creo el mensaje
+    for (let key in valores) {
+      if ("selectdireccion" === key) {
+        mensaje += ` - ${valoresForm[key]}: ${valores["duno"]}# ${valores["ddos"]} - ${valores["dtres"]}\n`;
+      } else {
+        if (key in valoresForm) {
+          //el chartAt y lo demas, es para poner la primera letra en mayuscula
+          mensaje += ` - ${valoresForm[key]}: ${
+            valores[key].charAt(0).toUpperCase() + valores[key].slice(1)
+          } \n`;
+        }
+      }
+    }
+    const produtosEnCarrito = document.querySelectorAll(".item-producto");
+    if (produtosEnCarrito.length === 0){
+      carritoMensaje("sin");
+    } else {
+      mensaje += `Productos:\n`;
+      let totalPedido = 0;
+      produtosEnCarrito.forEach((producto) => {
+        const titulo = producto.querySelector(".fs-6").textContent;
+        const cantidad = producto.querySelector("#cantidad").textContent;
+        const precio = producto.querySelector("#precio").textContent;
+        mensaje += `   - ${titulo} ~ Cantidad: ${cantidad} ~ Total: $${precio}\n`;
+        totalPedido += parseInt(precio);
+      });
+      if (valores["notapedido"].trim() !== "") {
+        mensaje += `Nota usuario: ${valores["notapedido"]}`;
+      }
+      mensaje += `Total pedido: $${totalPedido}\n`;
+      mensaje = encodeURIComponent(mensaje);
+      window.location.href = `https://wa.me/573206081583?text=${mensaje}`;
+    }
+  });
 });
