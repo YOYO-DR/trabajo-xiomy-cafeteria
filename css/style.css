@@ -74,7 +74,10 @@ body {
 .values-drop {
   background-color: #e2bca7;
 }
-
+.item-producto {
+  min-height: 70px;
+  max-height: 100px;
+}
 .accordion-item {
   background-color: transparent;
   border: none !important;
@@ -106,7 +109,9 @@ body {
   width: 25px !important;
   padding: 1px;
 }
-
+.minus,.plus {
+border: solid transparent 1px !important;
+}
 .minus:hover,.plus:hover {
 background-color: #d8af97;
 border-radius: 20px;

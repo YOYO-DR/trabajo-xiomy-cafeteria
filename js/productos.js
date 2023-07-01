@@ -1,3 +1,43 @@
+//mensaje
+function carritoMensaje(a=null) {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+  if (a === "a") {
+    Toast.fire({
+      icon: "success",
+      title: "Producto aumentado",
+    });
+  } else if (a === "d") {
+    Toast.fire({
+      icon: "success",
+      title: "Producto disminuido",
+    });
+  } else if (a === "e") {
+    Toast.fire({
+      icon: "success",
+      title: "Producto eliminado",
+    });
+  }
+  
+  else {
+    Toast.fire({
+      icon: "success",
+      title: "Carrito actualizado",
+    });
+  }
+  
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
   //Buscar los productos
   //selecciono el div que tiene todos los productos
@@ -46,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         eventoBotonesProductos();
       }
-      
     });
   /* Formulario */
   //guardo cada formulario
@@ -158,7 +197,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("tipo-pedido")
     .addEventListener("change", function () {
-      
       //agrego la funcion change que es cuando se selecciona algun valor del select
       var valorSeleccionado = this.value;
 
@@ -175,22 +213,29 @@ document.addEventListener("DOMContentLoaded", function () {
   /* carrito */
   function plantillaCart(src, titulo, precio, cantidad) {
     const carrito = document.getElementById("carrito");
-    const itemsCarrito = carrito.querySelectorAll(".item-producto")
-    let tituloItems = [...itemsCarrito];
-    const nombresItems = tituloItems.map((item) => {
+    const valoresCarrito = carrito.querySelectorAll(".item-producto");
+    const itemsCarrito = [...valoresCarrito];
+    const nombresItems = itemsCarrito.map((item) => {
       const tituloElement = item.querySelector(".fs-6");
       return tituloElement.textContent;
     });
     let productoExist = false;
+    let nodoProducto = null;
     for (let item of nombresItems) {
       if (item === titulo) {
-       productoExist=true;
-        break
+        productoExist = true;
+        //obtengo el producto si el titulo es sigual al que ya viene
+        nodoProducto = itemsCarrito.find(
+          (item) => item.querySelector(".fs-6").textContent === titulo
+        );
+        break;
       }
     }
     if (productoExist) {
-      //utilizar el fs-6 del titulo u otra clase para luego obtener su contenedor padre el cual sea todo el producto
-      console.log(titulo + "Ya esta en el carrito")
+      const precioProducto = nodoProducto.querySelector("#precio");
+      const cantidadProducto = nodoProducto.querySelector("#cantidad");
+      cantidadProducto.innerHTML = parseInt(cantidadProducto.innerHTML) + 1;
+      precioProducto.innerHTML = precio * parseInt(cantidadProducto.innerHTML);
     } else {
       var plantilla = `
                 <div
@@ -204,10 +249,10 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="d-flex justify-content-between w-100">
                     <div class="d-flex flex-column">
                       <span class="fs-6">${titulo}</span>
-                      <span><b>Precio:</b>$<i id="precio">${precio}</i> X<i id="cantidad">${cantidad}</i></span>
+                      <span><b>Precio:</b>$<i id="precio">${precio}</i> X <i id="cantidad">${cantidad}</i></span>
                     </div>
-                    <div class="d-flex">
-                      <button class="btn-des minus">
+                    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+                      <button type="button" class="btn-des minus">
                       <img
                         class="icono-flecha"
                         src="/img/menos.png"
@@ -215,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       />
                     </button>
                     
-                      <button class="btn-des plus">
+                      <button type="button" class="btn-des plus">
                       <img
                         class="icono-flecha"
                         src="/img/agregar.png"
@@ -229,15 +274,18 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
       let carritoActual = (carrito.innerHTML += plantilla);
       carrito.innerHTML = carritoActual;
+      //le agrego los eventos a los botones + y - solo cuando se crean
+      eventoBotonesCarrito();
     }
+    //mensaje
     
+carritoMensaje()
   }
-  //funciones
   //agregar evento a cada boton de los productos para obtener sus valores
   function eventoBotonesProductos() {
     const botonesP = document.querySelectorAll("#accordionExample .btn-des");
 
-    console.log(botonesP.length)
+    console.log(botonesP.length);
     botonesP.forEach(function (boton) {
       // Clonar el botón para conservar sus propiedades
       const botonClonado = boton.cloneNode(true);
@@ -266,6 +314,48 @@ document.addEventListener("DOMContentLoaded", function () {
       // Agregar el botón clonado de vuelta al DOM
       parent.appendChild(botonClonado);
     });
+  }
+  //agregar evento a cada boton del carrito para aumentar y disminuir
+  function eventoBotonesCarrito() {
+    const botones = document.querySelectorAll(".item-producto");
+    const botonesPlus = document.querySelectorAll(".plus");
+    const botonesMinus = document.querySelectorAll(".minus");
+    if (botones) {
+      //evento botones de mas y menos
+      botonesPlus.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+          //nodo producto
+          const nodoProducto = boton.parentNode.parentNode.parentNode;
+          const cantidad = nodoProducto.querySelector("#cantidad");
+          const precio = nodoProducto.querySelector("#precio");
+          let precioUnitario =
+            parseInt(precio.textContent) / parseInt(cantidad.textContent);
+          cantidad.innerHTML = parseInt(cantidad.innerHTML) + 1;
+          precio.innerHTML = parseInt(cantidad.innerHTML) * precioUnitario;
+          carritoMensaje("a");
+        });
+      });
+      botonesMinus.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+          //nodo producto
+          const nodoProducto = boton.parentNode.parentNode.parentNode;
+          const cantidad = nodoProducto.querySelector("#cantidad");
+          if (parseInt(cantidad.innerHTML) > 1) {
+            const precio = nodoProducto.querySelector("#precio");
+            let precioUnitario =
+              parseInt(precio.textContent) / parseInt(cantidad.textContent);
+            cantidad.innerHTML = parseInt(cantidad.innerHTML) - 1;
+
+            precio.innerHTML = parseInt(cantidad.innerHTML) * precioUnitario;
+            carritoMensaje("d");
+          } else {
+            const parentProducto = nodoProducto.parentNode;
+            parentProducto.removeChild(nodoProducto);
+            carritoMensaje("e");
+          }
+        });
+      });
+    }
   }
   eventoBotonesProductos();
 });
