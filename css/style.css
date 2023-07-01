@@ -64,7 +64,7 @@ body {
   width: 40px;
 }
 
-.btn-des {
+.btn-des,.btn-despm {
   background-color: transparent;
   display: inline-block;
   border: none !important;
@@ -92,4 +92,24 @@ body {
 .form-buscar input:focus {
   border: solid 1px #ab846e;
   box-shadow: none;
+}
+.input-focus:focus{
+  box-shadow: none !important;
+  border-color: #ab846e !important;
+}
+.rounded-4 {
+  border-color: #ab846e !important;
+  border-width: 2px !important;
+}
+
+.minus img,.plus img {
+  width: 25px !important;
+  padding: 1px;
+}
+
+.minus:hover,.plus:hover {
+background-color: #d8af97;
+border-radius: 20px;
+border: solid #ab846e 1px !important;
+padding-bottom: 5px;
 }
