@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelector(".form-control")
     .addEventListener("input", function () {
-      //agrego el evento a los botones generados
-      eventoBotonesProductos(false);
       // con el evento input que es el de reaccionada cada que escribe, realizo la busqueda
       //obtengo la busqueda y le aplico una normalizacion, que ignore las tildes, lo pongo en minuscula, y que quite los espacios de inicio y fin
       var searchText = this.value
@@ -26,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (searchText === "") {
         //si esta vacio, dejo todo el contenido normal
         accordionContainer.innerHTML = originalAccordionContent;
+        eventoBotonesProductos();
       } else {
         //si tiene valores, dejo el contenedor vacio para poner los resultados de busqueda
         accordionContainer.innerHTML = "";
@@ -45,7 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
           accordionContainer.innerHTML =
             '<p class="ms-0 ms-md-5 fs-4">Sin resultados</p>';
         }
+        eventoBotonesProductos();
       }
+      
     });
   /* Formulario */
   //guardo cada formulario
@@ -170,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (valorSeleccionado == "local") {
         document.getElementById("form-dinamico").innerHTML = formLocal;
       }
-      eventoBotonesProductos("busqueda");
     });
   /* carrito */
   function plantillaCart(src, titulo, precio, cantidad) {
@@ -215,13 +215,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   //funciones
   //agregar evento a cada boton de los productos para obtener sus valores
-  function eventoBotonesProductos(b=false) {
-    let botonesP;
-    if (b=="busqueda") {
-      botonesP = document.querySelectorAll("#accordionExample");
-    } else {
-      botonesP = document.querySelectorAll(".btn-des");
-    }
+  function eventoBotonesProductos() {
+    const botonesP = document.querySelectorAll("#accordionExample .btn-des");
+
     console.log(botonesP.length)
     botonesP.forEach(function (boton) {
       // Clonar el botón para conservar sus propiedades
