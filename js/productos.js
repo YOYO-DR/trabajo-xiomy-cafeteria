@@ -247,8 +247,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Agregar el botón clonado de vuelta al DOM
       parent.appendChild(botonClonado);
     });
-
   }
-
   eventoBotonesProductos();
 });
