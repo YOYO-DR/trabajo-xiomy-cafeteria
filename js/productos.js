@@ -413,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       mensaje += `Total pedido: $${totalPedido}\n`;
       mensaje = encodeURIComponent(mensaje);
-      window.location.href = `https://wa.me/573206081583?text=${mensaje}`;
+      window.location.href = `https://wa.me/573148743538?text=${mensaje}`;
     }
   });
 });
